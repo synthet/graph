@@ -11,11 +11,11 @@ import java.util.Set;
 
 public abstract class BaseGraph<V> implements Graph<V> {
 
-    protected final Class<V> typeParameterClass;
+    private final Class<V> typeParameterClass;
 
-    protected Map<V, EdgeSet<V>> vertexMap;
+    private Map<V, EdgeSet<V>> vertexMap;
 
-    protected BaseGraph(Class<V> clazz) {
+    BaseGraph(Class<V> clazz) {
         this.typeParameterClass = clazz;
     }
 
@@ -56,11 +56,11 @@ public abstract class BaseGraph<V> implements Graph<V> {
         return getVertexSet().contains(vertex);
     }
 
-    protected Set<V> getVertexSet() {
+    private Set<V> getVertexSet() {
         return getVertexMap().keySet();
     }
 
-    protected Map<V, EdgeSet<V>> getVertexMap() {
+    private Map<V, EdgeSet<V>> getVertexMap() {
         if (vertexMap == null) {
             vertexMap = new LinkedHashMap<>();
         }

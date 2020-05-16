@@ -1,7 +1,5 @@
 package ru.synthet.graph.edge;
 
-import ru.synthet.graph.edge.Edge;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +8,11 @@ public class SimpleEdge<V> implements Edge<V> {
     private V srcVertex;
     private V dstVertex;
 
+    /**
+     * Construct an edge based on source and destination vertexes
+     * @param srcVertex - source vertex
+     * @param dstVertex - destination vertex
+     */
     SimpleEdge(V srcVertex, V dstVertex) {
         this.srcVertex = srcVertex;
         this.dstVertex = dstVertex;

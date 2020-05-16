@@ -5,7 +5,7 @@ import ru.synthet.graph.edge.UndirectEdgeSet;
 
 public class UndirectGraph<V> extends BaseGraph<V> implements Graph<V> {
 
-    protected UndirectGraph(Class<V> clazz) {
+    UndirectGraph(Class<V> clazz) {
         super(clazz);
     }
 

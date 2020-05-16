@@ -5,7 +5,7 @@ import ru.synthet.graph.edge.EdgeSet;
 
 public class DirectGraph<V> extends BaseGraph<V> implements Graph<V> {
 
-    protected DirectGraph(Class<V> clazz) {
+    DirectGraph(Class<V> clazz) {
         super(clazz);
     }
 
