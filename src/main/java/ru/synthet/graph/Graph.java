@@ -23,4 +23,8 @@ public interface Graph<V> {
      */
     Optional<Edge> addEdge​(V srcVertex, V dstVertex);
 
+    /**
+     * @return type of the graph
+     */
+    GraphType getType();
 }

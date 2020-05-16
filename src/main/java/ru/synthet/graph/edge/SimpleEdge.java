@@ -13,7 +13,7 @@ public class SimpleEdge<V> implements Edge<V> {
      * @param srcVertex - source vertex
      * @param dstVertex - destination vertex
      */
-    SimpleEdge(V srcVertex, V dstVertex) {
+    public SimpleEdge(V srcVertex, V dstVertex) {
         this.srcVertex = srcVertex;
         this.dstVertex = dstVertex;
     }

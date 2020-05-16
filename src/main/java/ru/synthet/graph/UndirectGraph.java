@@ -5,6 +5,8 @@ import ru.synthet.graph.edge.UndirectEdgeSet;
 
 public class UndirectGraph<V> extends BaseGraph<V> implements Graph<V> {
 
+    private final static GraphType TYPE = GraphType.DIRECT;
+
     UndirectGraph(Class<V> clazz) {
         super(clazz);
     }
@@ -14,4 +16,8 @@ public class UndirectGraph<V> extends BaseGraph<V> implements Graph<V> {
         return new UndirectEdgeSet<>();
     }
 
+    @Override
+    public GraphType getType() {
+        return TYPE;
+    }
 }
