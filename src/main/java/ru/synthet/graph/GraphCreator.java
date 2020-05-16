@@ -1,5 +1,9 @@
 package ru.synthet.graph;
 
+import ru.synthet.graph.graph.DirectGraph;
+import ru.synthet.graph.graph.Graph;
+import ru.synthet.graph.graph.UndirectGraph;
+
 public class GraphCreator {
 
     private static GraphCreator INSTANCE;
@@ -17,10 +21,10 @@ public class GraphCreator {
     public <V> Graph<V> createGraph(GraphType type, Class<V> clazz) {
         if (type != null) {
             switch (type) {
-                case DIRECTED:
-                    return new DirectedGraph<>(clazz);
-                case UNDIRECTED:
-                    return new UndirectedGraph<>(clazz);
+                case DIRECT:
+                    return new DirectGraph<>(clazz);
+                case UNDIRECT:
+                    return new UndirectGraph<>(clazz);
             }
         }
         throw new RuntimeException("Wrong type of graph");

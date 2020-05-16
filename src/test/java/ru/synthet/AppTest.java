@@ -3,8 +3,9 @@ package ru.synthet;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.synthet.graph.*;
-
-import java.util.ArrayList;
+import ru.synthet.graph.graph.DirectGraph;
+import ru.synthet.graph.graph.Graph;
+import ru.synthet.graph.graph.UndirectGraph;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,14 +15,14 @@ public class AppTest {
     @Test
     public void shouldCreateDirectGraph() {
 
-        Graph<String> directedGraph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
-        Assert.assertTrue(directedGraph instanceof DirectedGraph);
+        Graph<String> directedGraph = GraphCreator.getInstance().createGraph(GraphType.DIRECT, String.class);
+        Assert.assertTrue(directedGraph instanceof DirectGraph);
     }
 
     @Test
     public void shouldCreateUndirectGraph() {
 
-        Graph<Long> undirectedGraph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
-        Assert.assertTrue(undirectedGraph instanceof UndirectedGraph);
+        Graph<Long> undirectedGraph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECT, Long.class);
+        Assert.assertTrue(undirectedGraph instanceof UndirectGraph);
     }
 }

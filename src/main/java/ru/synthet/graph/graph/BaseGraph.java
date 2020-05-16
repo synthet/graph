@@ -1,4 +1,8 @@
-package ru.synthet.graph;
+package ru.synthet.graph.graph;
+
+import ru.synthet.graph.edge.Edge;
+import ru.synthet.graph.edge.EdgeSet;
+import ru.synthet.graph.edge.SimpleEdge;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -33,9 +37,12 @@ public abstract class BaseGraph<V> implements Graph<V> {
     @Override
     public Edge addEdge​(V srcVertex, V dstVertex) {
 
-        Edge<V> edge = new Edge<>();
+        SimpleEdge<V> edge = new SimpleEdge<>(srcVertex, dstVertex);
 
-        return null;
+        getVertexMap().get(srcVertex).add(edge);
+        getVertexMap().get(dstVertex).add(edge);
+
+        return edge;
     }
 
     private Set<V> getVertexSet() {

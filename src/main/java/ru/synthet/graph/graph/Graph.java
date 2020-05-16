@@ -1,4 +1,6 @@
-package ru.synthet.graph;
+package ru.synthet.graph.graph;
+
+import ru.synthet.graph.edge.Edge;
 
 public interface Graph<V> {
 
