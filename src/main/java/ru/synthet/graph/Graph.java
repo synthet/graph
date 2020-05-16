@@ -2,6 +2,7 @@ package ru.synthet.graph;
 
 import ru.synthet.graph.edge.Edge;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,4 +38,12 @@ public interface Graph<V> {
      * @return list of edges between two vertexes
      */
     List<Edge<V>> getPath(V startVertex, V endVertex);
+
+    /**
+     * Iterate trough adjacent vertexes
+     * @param vertex - start vertex
+     *
+     * @return iterator through adjacent vertexes
+     */
+    Iterator<V> getAdjacent(V vertex);
 }

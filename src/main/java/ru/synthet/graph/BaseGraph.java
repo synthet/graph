@@ -47,6 +47,11 @@ public abstract class BaseGraph<V> implements Graph<V> {
         return Optional.of(edge);
     }
 
+    @Override
+    public Iterator<V> getAdjacent(V vertex) {
+
+        return getVertexMap().get(vertex).getAdjacent();
+    }
 
     private boolean containsVertex(V vertex) {
 

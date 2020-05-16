@@ -13,7 +13,7 @@ public class BreadthFirstSearch<V> {
         this.graph = graph;
     }
 
-    void execute(V currentVertex) {
+    public void execute(V currentVertex) {
         Set<V> visited = new HashSet<>();
         LinkedList<V> queue = new LinkedList<>();
         visited.add(currentVertex);

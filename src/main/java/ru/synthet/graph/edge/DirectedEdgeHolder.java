@@ -1,5 +1,6 @@
 package ru.synthet.graph.edge;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +22,12 @@ public class DirectedEdgeHolder<V> implements EdgeHolder<V> {
         if (Objects.equals(dstVertex, vertex)) {
             addIn(edge);
         }
+    }
+
+    @Override
+    public Iterator<V> getAdjacent() {
+
+        return outEdges.stream().map(Edge::getDestinationVertex).iterator();
     }
 
     private void addIn(Edge<V> edge) {
