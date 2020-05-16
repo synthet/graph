@@ -20,7 +20,7 @@ public class BreadthFirstSearch<V> {
         queue.add(currentVertex);
         while (queue.size() != 0) {
             currentVertex = queue.poll();
-            System.out.print(String.valueOf(currentVertex));
+            System.out.print(String.format("%s ", String.valueOf(currentVertex)));
             Iterator<V> i = graph.getAdjacent(currentVertex);
             while (i.hasNext()) {
                 V nextVertex = i.next();
