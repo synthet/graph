@@ -4,10 +4,7 @@ import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public abstract class BaseGraph<V> implements Graph<V> {
 
@@ -22,6 +19,9 @@ public abstract class BaseGraph<V> implements Graph<V> {
     protected abstract EdgeHolder<V> emptyEdgeHolder();
 
     @Override
+    public abstract List<Edge<V>> getPath(V srcVertex, V dstVertex);
+
+    @Override
     public boolean addVertex(V vertex) {
 
         if (containsVertex(vertex)) {
@@ -33,7 +33,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
     }
 
     @Override
-    public Optional<Edge> addEdge​(V srcVertex, V dstVertex) {
+    public Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex) {
 
         if ((!containsVertex(srcVertex)) || (!containsVertex(dstVertex)))  {
             return Optional.empty();
@@ -46,6 +46,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
 
         return Optional.of(edge);
     }
+
 
     private boolean containsVertex(V vertex) {
 

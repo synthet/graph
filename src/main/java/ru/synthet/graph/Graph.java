@@ -2,9 +2,15 @@ package ru.synthet.graph;
 
 import ru.synthet.graph.edge.Edge;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface Graph<V> {
+
+    /**
+     * @return type of the graph
+     */
+    GraphType getType();
 
     /**
      * Add a vertex to the graph
@@ -21,10 +27,14 @@ public interface Graph<V> {
      *
      * @return optional edge
      */
-    Optional<Edge> addEdge​(V srcVertex, V dstVertex);
+    Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex);
 
     /**
-     * @return type of the graph
+     * Get list of edges between two vertexes
+     * @param startVertex - start vertex of a path
+     * @param endVertex - end vertex of a path
+     *
+     * @return list of edges between two vertexes
      */
-    GraphType getType();
+    List<Edge<V>> getPath(V startVertex, V endVertex);
 }
