@@ -14,7 +14,7 @@ public class GraphCreator {
         return INSTANCE;
     }
 
-    public <V> Graph<V> createGraph(GraphType type, Class<V> clazz) throws Exception {
+    public <V> Graph<V> createGraph(GraphType type, Class<V> clazz) {
         if (type != null) {
             switch (type) {
                 case DIRECTED:
@@ -23,6 +23,6 @@ public class GraphCreator {
                     return new UndirectedGraph<>(clazz);
             }
         }
-        throw new Exception("Wrong type of graph");
+        throw new RuntimeException("Wrong type of graph");
     }
 }
