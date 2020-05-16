@@ -1,4 +1,4 @@
-package ru.synthet.graph.graph;
+package ru.synthet.graph;
 
 import ru.synthet.graph.edge.DirectEdgeSet;
 import ru.synthet.graph.edge.EdgeSet;
@@ -10,7 +10,8 @@ public class DirectGraph<V> extends BaseGraph<V> implements Graph<V> {
     }
 
     @Override
-    protected EdgeSet<V> createEdgeSet() {
+    protected EdgeSet<V> emptyEdgeSet() {
         return new DirectEdgeSet<>();
     }
+
 }

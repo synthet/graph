@@ -1,9 +1,5 @@
 package ru.synthet.graph;
 
-import ru.synthet.graph.graph.DirectGraph;
-import ru.synthet.graph.graph.Graph;
-import ru.synthet.graph.graph.UndirectGraph;
-
 public class GraphCreator {
 
     private static GraphCreator INSTANCE;

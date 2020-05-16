@@ -7,7 +7,12 @@ public class UndirectEdgeSet<V> implements EdgeSet<V> {
 
     private Set<Edge<V>> edges;
 
-    public void add(Edge<V> edge) {
+    @Override
+    public void add(V vertex, Edge<V> edge) {
+        add(edge);
+    }
+
+    private void add(Edge<V> edge) {
         getEdges().add(edge);
     }
 
@@ -17,4 +22,5 @@ public class UndirectEdgeSet<V> implements EdgeSet<V> {
         }
         return edges;
     }
+
 }

@@ -3,9 +3,9 @@ package ru.synthet;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.synthet.graph.*;
-import ru.synthet.graph.graph.DirectGraph;
-import ru.synthet.graph.graph.Graph;
-import ru.synthet.graph.graph.UndirectGraph;
+import ru.synthet.graph.DirectGraph;
+import ru.synthet.graph.Graph;
+import ru.synthet.graph.UndirectGraph;
 
 import static org.junit.Assert.assertTrue;
 
