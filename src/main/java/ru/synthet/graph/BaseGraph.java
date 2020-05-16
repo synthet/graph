@@ -1,7 +1,7 @@
 package ru.synthet.graph;
 
 import ru.synthet.graph.edge.Edge;
-import ru.synthet.graph.edge.EdgeSet;
+import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
 
 import java.util.LinkedHashMap;
@@ -13,13 +13,13 @@ public abstract class BaseGraph<V> implements Graph<V> {
 
     private final Class<V> typeParameterClass;
 
-    private Map<V, EdgeSet<V>> vertexMap;
+    private Map<V, EdgeHolder<V>> vertexMap;
 
     BaseGraph(Class<V> clazz) {
         this.typeParameterClass = clazz;
     }
 
-    protected abstract EdgeSet<V> emptyEdgeSet();
+    protected abstract EdgeHolder<V> emptyEdgeHolder();
 
     @Override
     public boolean addVertex(V vertex) {
@@ -28,7 +28,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
             return false;
         }
 
-        getVertexMap().put(vertex, emptyEdgeSet());
+        getVertexMap().put(vertex, emptyEdgeHolder());
         return true;
     }
 
@@ -60,7 +60,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
         return getVertexMap().keySet();
     }
 
-    private Map<V, EdgeSet<V>> getVertexMap() {
+    private Map<V, EdgeHolder<V>> getVertexMap() {
         if (vertexMap == null) {
             vertexMap = new LinkedHashMap<>();
         }

@@ -26,10 +26,10 @@ public class GraphCreator {
     public <V> Graph<V> createGraph(GraphType type, Class<V> clazz) {
         if (type != null) {
             switch (type) {
-                case DIRECT:
-                    return new DirectGraph<>(clazz);
-                case UNDIRECT:
-                    return new UndirectGraph<>(clazz);
+                case DIRECTED:
+                    return new DirectedGraph<>(clazz);
+                case UNDIRECTED:
+                    return new UndirectedGraph<>(clazz);
             }
         }
         throw new RuntimeException("Wrong type of graph");

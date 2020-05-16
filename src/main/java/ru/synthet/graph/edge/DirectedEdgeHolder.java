@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class DirectEdgeSet<V> implements EdgeSet<V> {
+public class DirectedEdgeHolder<V> implements EdgeHolder<V> {
 
     private Set<Edge<V>> inEdges;
     private Set<Edge<V>> outEdges;

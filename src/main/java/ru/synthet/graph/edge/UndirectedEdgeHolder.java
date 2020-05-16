@@ -3,7 +3,7 @@ package ru.synthet.graph.edge;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class UndirectEdgeSet<V> implements EdgeSet<V> {
+public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
 
     private Set<Edge<V>> edges;
 
