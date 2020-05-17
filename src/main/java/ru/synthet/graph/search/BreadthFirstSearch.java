@@ -3,7 +3,6 @@ package ru.synthet.graph.search;
 import ru.synthet.graph.Graph;
 import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.exception.GraphException;
-import ru.synthet.graph.exception.NoSuchVertexException;
 
 import java.util.*;
 
@@ -19,13 +18,9 @@ public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSe
     @Override
     public List<Edge<V>> execute(V startVertex, V endVertex) throws GraphException {
 
-        if ((!graph.containsVertex(startVertex)) || (!graph.containsVertex(endVertex)))  {
-            throw new NoSuchVertexException();
-        }
-
-        if (Objects.equals(startVertex, endVertex)) {
-            Optional<Edge<V>> edge = graph.getEdge(startVertex, endVertex);
-            return edge.map(Collections::singletonList).orElse(Collections.emptyList());
+        List<Edge<V>> edges = checkVertexes(startVertex, endVertex);
+        if (edges != null) {
+            return edges;
         }
 
         Set<V> visited = new HashSet<>();
@@ -33,9 +28,9 @@ public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSe
         Map<V, V> pathMap = new HashMap<>();
         visited.add(startVertex);
         queue.add(startVertex);
-        V currentVertex;
+
         while (!queue.isEmpty()) {
-            currentVertex = queue.poll();
+            V currentVertex = queue.poll();
             Iterator<V> i = graph.getAdjacentVertexes(currentVertex);
             while (i.hasNext()) {
                 V nextVertex = i.next();

@@ -3,7 +3,6 @@ package ru.synthet.graph.search;
 import ru.synthet.graph.Graph;
 import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.exception.GraphException;
-import ru.synthet.graph.exception.NoSuchVertexException;
 
 import java.util.*;
 
@@ -16,13 +15,9 @@ public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch
     @Override
     public List<Edge<V>> execute(V startVertex, V endVertex) throws GraphException {
 
-        if ((!graph.containsVertex(startVertex)) || (!graph.containsVertex(endVertex)))  {
-            throw new NoSuchVertexException();
-        }
-
-        if (Objects.equals(startVertex, endVertex)) {
-            Optional<Edge<V>> edge = graph.getEdge(startVertex, endVertex);
-            return edge.map(Collections::singletonList).orElse(Collections.emptyList());
+        List<Edge<V>> edges = checkVertexes(startVertex, endVertex);
+        if (edges != null) {
+            return edges;
         }
 
         Set<V> visited = new HashSet<>();
@@ -30,27 +25,25 @@ public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch
         Map<V, V> pathMap = new HashMap<>();
         Map<V, Long> priorityMap = new LinkedHashMap<>();
         visited.add(startVertex);
-        PriorityVertex<V> startNode = new PriorityVertex<>(startVertex);
-        startNode.setPriority(0L);
         priorityMap.put(startVertex, 0L);
+        PriorityVertex<V> startNode = new PriorityVertex<>(startVertex, 0L);
         queue.add(startNode);
-        V currentVertex;
+
         while (!queue.isEmpty()) {
             PriorityVertex<V> currentNode = queue.remove();
-            currentVertex = currentNode.getVertex();
+            V currentVertex = currentNode.getVertex();
             visited.add(currentVertex);
             Iterator<Edge<V>> i = graph.getAdjacentEdges(currentVertex);
             while (i.hasNext()) {
                 Edge<V> nextEdge = i.next();
                 V nextVertex = nextEdge.getAdjacentVertex(currentVertex);
                 if (!visited.contains(nextVertex)) {
-                    long newPriority = getPriority(priorityMap, currentVertex) + 1L;
-                    if (newPriority < getPriority(priorityMap, nextVertex)) {
-                        priorityMap.put(nextVertex, newPriority);
+                    long priority = getPriority(priorityMap, currentVertex) + 1L;
+                    if (priority < getPriority(priorityMap, nextVertex)) {
+                        priorityMap.put(nextVertex, priority);
                         pathMap.put(nextVertex, currentVertex);
                     }
-                    PriorityVertex<V> nextNode = new PriorityVertex<>(nextVertex);
-                    nextNode.setPriority(getPriority(priorityMap, nextVertex));
+                    PriorityVertex<V> nextNode = new PriorityVertex<>(nextVertex, getPriority(priorityMap, nextVertex));
                     queue.add(nextNode);
                 }
             }
@@ -64,30 +57,22 @@ public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch
         return priorityMap.computeIfAbsent(vertex, k -> Long.MAX_VALUE);
     }
 
-    private long getEdgePriority(Edge<V> edge) {
-
-        return 1L;
-    }
-
     private class PriorityVertex<U> implements Comparable<PriorityVertex<U>> {
 
         private U vertex;
-        private long priority = Long.MAX_VALUE;
+        private long priority;
 
-        public PriorityVertex(U vertex) {
+        PriorityVertex(U vertex, long priority) {
             this.vertex = vertex;
+            this.priority = priority;
         }
 
-        public U getVertex() {
+        U getVertex() {
             return vertex;
         }
 
-        public long getPriority() {
+        long getPriority() {
             return priority;
-        }
-
-        public void setPriority(long priority) {
-            this.priority = priority;
         }
 
         @Override

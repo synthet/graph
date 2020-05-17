@@ -2,6 +2,7 @@ package ru.synthet.graph.search;
 
 import ru.synthet.graph.Graph;
 import ru.synthet.graph.edge.Edge;
+import ru.synthet.graph.exception.NoSuchVertexException;
 
 import java.util.*;
 
@@ -29,4 +30,19 @@ public abstract class BaseGraphSearch<V> implements GraphSearch<V> {
 
         return reversePath;
     }
+
+    List<Edge<V>> checkVertexes(V startVertex, V endVertex) {
+
+        if ((!graph.containsVertex(startVertex)) || (!graph.containsVertex(endVertex)))  {
+            throw new NoSuchVertexException();
+        }
+
+        if (Objects.equals(startVertex, endVertex)) {
+            Optional<Edge<V>> edge = graph.getEdge(startVertex, endVertex);
+            return edge.map(Collections::singletonList).orElse(Collections.emptyList());
+        }
+
+        return null;
+    }
+
 }
