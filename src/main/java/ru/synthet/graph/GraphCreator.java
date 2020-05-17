@@ -1,5 +1,7 @@
 package ru.synthet.graph;
 
+import ru.synthet.graph.exception.WrongGraphTypeException;
+
 public class GraphCreator {
 
     private static GraphCreator INSTANCE;
@@ -23,7 +25,7 @@ public class GraphCreator {
      *
      * @return graph object
      */
-    public <V> Graph<V> createGraph(GraphType type, Class<V> clazz) {
+    public <V> Graph<V> createGraph(GraphType type, Class<V> clazz) throws WrongGraphTypeException {
         if (type != null) {
             switch (type) {
                 case DIRECTED:
@@ -32,6 +34,6 @@ public class GraphCreator {
                     return new UndirectedGraph<>(clazz);
             }
         }
-        throw new RuntimeException("Wrong type of graph");
+        throw new WrongGraphTypeException();
     }
 }
