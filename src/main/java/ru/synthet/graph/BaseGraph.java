@@ -33,7 +33,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
     }
 
     @Override
-    public Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex) throws GraphException {
+    public Optional<Edge<V>> addEdge(V srcVertex, V dstVertex) throws GraphException {
 
         if ((!containsVertex(srcVertex)) || (!containsVertex(dstVertex)))  {
             throw new NoSuchVertexException();

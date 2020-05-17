@@ -66,7 +66,7 @@ public class AppTest {
         Graph<Long> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
         graph.addVertex(0L);
         graph.addVertex(1L);
-        Optional<Edge<Long>> edge = graph.addEdge​(0L, 1L);
+        Optional<Edge<Long>> edge = graph.addEdge(0L, 1L);
         Assert.assertTrue(edge.isPresent());
         Assert.assertEquals((Long) 0L, edge.get().getSourceVertex());
         Assert.assertEquals((Long) 1L, edge.get().getDestinationVertex());
@@ -78,7 +78,7 @@ public class AppTest {
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
         graph.addVertex("1");
-        graph.addEdge​("0", "2");
+        graph.addEdge("0", "2");
     }
 
     @Test(expected = NoSuchVertexException.class)
@@ -87,7 +87,7 @@ public class AppTest {
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
         graph.addVertex("1");
-        graph.addEdge​("0", "1");
+        graph.addEdge("0", "1");
         graph.getPath("0", "2");
     }
 
@@ -98,7 +98,7 @@ public class AppTest {
         graph.addVertex("0");
         graph.addVertex("1");
         graph.addVertex("2");
-        graph.addEdge​("0", "1");
+        graph.addEdge("0", "1");
 
         List<Edge<String>> path = graph.getPath("0", "2");
         Assert.assertTrue(path.isEmpty());
@@ -111,7 +111,7 @@ public class AppTest {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
-        graph.addEdge​("0", "0");
+        graph.addEdge("0", "0");
 
         List<Edge<String>> path = graph.getPath("0", "0");
         Assert.assertEquals(1, path.size());
@@ -143,19 +143,19 @@ public class AppTest {
         graph.addVertex("5");
         graph.addVertex("6");
         graph.addVertex("7");
-        graph.addEdge​("0", "2");
-        graph.addEdge​("0", "3");
-        graph.addEdge​("1", "3");
-        graph.addEdge​("1", "6");
-        graph.addEdge​("2", "6");
-        graph.addEdge​("3", "1");
-        graph.addEdge​("4", "2");
-        graph.addEdge​("5", "3");
-        graph.addEdge​("5", "7");
-        graph.addEdge​("6", "2");
-        graph.addEdge​("6", "5");
-        graph.addEdge​("6", "7");
-        graph.addEdge​("7", "6");
+        graph.addEdge("0", "2");
+        graph.addEdge("0", "3");
+        graph.addEdge("1", "3");
+        graph.addEdge("1", "6");
+        graph.addEdge("2", "6");
+        graph.addEdge("3", "1");
+        graph.addEdge("4", "2");
+        graph.addEdge("5", "3");
+        graph.addEdge("5", "7");
+        graph.addEdge("6", "2");
+        graph.addEdge("6", "5");
+        graph.addEdge("6", "7");
+        graph.addEdge("7", "6");
 
         List<Edge<String>> path = graph.getPath("4", "1");
         Assert.assertEquals(5, path.size());
@@ -177,16 +177,16 @@ public class AppTest {
         graph.addVertex("5");
         graph.addVertex("6");
         graph.addVertex("7");
-        graph.addEdge​("0", "3");
-        graph.addEdge​("0", "2");
-        graph.addEdge​("0", "4");
-        graph.addEdge​("1", "2");
-        graph.addEdge​("1", "5");
-        graph.addEdge​("2", "4");
-        graph.addEdge​("2", "6");
-        graph.addEdge​("3", "7");
-        graph.addEdge​("5", "6");
-        graph.addEdge​("7", "7");
+        graph.addEdge("0", "3");
+        graph.addEdge("0", "2");
+        graph.addEdge("0", "4");
+        graph.addEdge("1", "2");
+        graph.addEdge("1", "5");
+        graph.addEdge("2", "4");
+        graph.addEdge("2", "6");
+        graph.addEdge("3", "7");
+        graph.addEdge("5", "6");
+        graph.addEdge("7", "7");
 
         List<Edge<String>> path = graph.getPath("4", "5");
         Assert.assertEquals(3, path.size());
@@ -209,21 +209,21 @@ public class AppTest {
         graph.addVertex("6");
         graph.addVertex("7");
 
-        graph.addEdge​("0", "1");
-        graph.addEdge​("0", "2");
-        graph.addEdge​("0", "4");
-        graph.addEdge​("1", "0");
-        graph.addEdge​("1", "5");
-        graph.addEdge​("2", "4");
-        graph.addEdge​("2", "6");
-        graph.addEdge​("3", "1");
-        graph.addEdge​("3", "5");
-        graph.addEdge​("4", "2");
-        graph.addEdge​("4", "6");
-        graph.addEdge​("5", "3");
-        graph.addEdge​("5", "7");
-        graph.addEdge​("6", "5");
-        graph.addEdge​("7", "5");
+        graph.addEdge("0", "1");
+        graph.addEdge("0", "2");
+        graph.addEdge("0", "4");
+        graph.addEdge("1", "0");
+        graph.addEdge("1", "5");
+        graph.addEdge("2", "4");
+        graph.addEdge("2", "6");
+        graph.addEdge("3", "1");
+        graph.addEdge("3", "5");
+        graph.addEdge("4", "2");
+        graph.addEdge("4", "6");
+        graph.addEdge("5", "3");
+        graph.addEdge("5", "7");
+        graph.addEdge("6", "5");
+        graph.addEdge("7", "5");
 
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
@@ -250,21 +250,21 @@ public class AppTest {
         graph.addVertex("6");
         graph.addVertex("7");
 
-        graph.addEdge​("0", "1");
-        graph.addEdge​("0", "2");
-        graph.addEdge​("0", "4");
-        graph.addEdge​("1", "0");
-        graph.addEdge​("1", "5");
-        graph.addEdge​("2", "4");
-        graph.addEdge​("2", "6");
-        graph.addEdge​("3", "1");
-        graph.addEdge​("3", "5");
-        graph.addEdge​("4", "2");
-        graph.addEdge​("4", "6");
-        graph.addEdge​("5", "3");
-        graph.addEdge​("5", "7");
-        graph.addEdge​("6", "5");
-        graph.addEdge​("7", "5");
+        graph.addEdge("0", "1");
+        graph.addEdge("0", "2");
+        graph.addEdge("0", "4");
+        graph.addEdge("1", "0");
+        graph.addEdge("1", "5");
+        graph.addEdge("2", "4");
+        graph.addEdge("2", "6");
+        graph.addEdge("3", "1");
+        graph.addEdge("3", "5");
+        graph.addEdge("4", "2");
+        graph.addEdge("4", "6");
+        graph.addEdge("5", "3");
+        graph.addEdge("5", "7");
+        graph.addEdge("6", "5");
+        graph.addEdge("7", "5");
 
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
