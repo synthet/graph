@@ -1,6 +1,7 @@
 package ru.synthet.graph;
 
 import ru.synthet.graph.edge.Edge;
+import ru.synthet.graph.exception.GraphException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -46,7 +47,7 @@ public interface Graph<V> {
      *
      * @return list of edges between two vertexes
      */
-    List<Edge<V>> getPath(V startVertex, V endVertex);
+    List<Edge<V>> getPath(V startVertex, V endVertex) throws GraphException;
 
     /**
      * Iterate trough adjacent vertexes
@@ -55,4 +56,12 @@ public interface Graph<V> {
      * @return iterator through adjacent vertexes
      */
     Iterator<V> getAdjacent(V vertex);
+
+    /**
+     * Check if vertex exists in the graph
+     * @param vertex - test vertex
+     *
+     * @return true if vertex exists
+     */
+    boolean containsVertex(V vertex);
 }

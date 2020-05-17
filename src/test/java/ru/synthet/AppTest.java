@@ -7,6 +7,8 @@ import ru.synthet.graph.DirectedGraph;
 import ru.synthet.graph.Graph;
 import ru.synthet.graph.UndirectedGraph;
 import ru.synthet.graph.edge.Edge;
+import ru.synthet.graph.exception.GraphException;
+import ru.synthet.graph.exception.NoSuchVertexException;
 import ru.synthet.graph.search.BreadthFirstSearch;
 
 import java.util.List;
@@ -30,8 +32,46 @@ public class AppTest {
         Assert.assertTrue(undirectedGraph instanceof UndirectedGraph);
     }
 
+    @Test(expected = NoSuchVertexException.class)
+    public void testNoSuchVertexException() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addEdge​("0", "1");
+        graph.getPath("0", "2");
+    }
+
     @Test
-    public void testBreadthFirstSearchDirected() {
+    public void testBreadthFirstSearchNoPath() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addEdge​("0", "1");
+
+        List<Edge<String>> path = graph.getPath("0", "2");
+        Assert.assertTrue(path.isEmpty());
+
+        System.out.println(String.format("%s", path.toString()));
+    }
+
+    @Test
+    public void testBreadthFirstSearchLoop() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
+        graph.addEdge​("0", "0");
+
+        List<Edge<String>> path = graph.getPath("0", "0");
+        Assert.assertEquals(path.size(), 1);
+
+        System.out.println(String.format("%s", path.toString()));
+    }
+
+    @Test
+    public void testBreadthFirstSearchDirected1() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
@@ -69,7 +109,7 @@ public class AppTest {
     }
 
     @Test
-    public void testBreadthFirstSearchUndirected() {
+    public void testBreadthFirstSearchUndirected2() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, String.class);
         graph.addVertex("0");

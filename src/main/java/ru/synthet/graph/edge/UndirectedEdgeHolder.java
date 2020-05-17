@@ -14,7 +14,7 @@ public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
     @Override
     public Iterator<V> getAdjacent(final V vertex) {
 
-        return edges.stream()
+        return getEdges().stream()
                 .map(Edge::getVertexList)
                 .flatMap(Collection::stream)
                 .filter(v -> !Objects.equals(v, vertex)).iterator();
@@ -23,7 +23,7 @@ public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
     @Override
     public Optional<Edge<V>> getEdge(final V srcVertex, final V dstVertex) {
 
-        return edges.stream()
+        return getEdges().stream()
                 .filter(e -> (e.getVertexList().contains(srcVertex)) && (e.getVertexList().contains(dstVertex)))
                 .findFirst();
     }

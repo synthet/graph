@@ -3,6 +3,7 @@ package ru.synthet.graph;
 import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
+import ru.synthet.graph.exception.GraphException;
 import ru.synthet.graph.search.BreadthFirstSearch;
 
 import java.util.*;
@@ -48,6 +49,10 @@ public abstract class BaseGraph<V> implements Graph<V> {
     @Override
     public Optional<Edge<V>> getEdge(V srcVertex, V dstVertex) {
 
+        if ((srcVertex == null) || (dstVertex == null)) {
+            return Optional.empty();
+        }
+
         return getVertexMap().get(srcVertex).getEdge(srcVertex, dstVertex);
     }
 
@@ -58,12 +63,13 @@ public abstract class BaseGraph<V> implements Graph<V> {
     }
 
     @Override
-    public List<Edge<V>> getPath(V srcVertex, V dstVertex) {
+    public List<Edge<V>> getPath(V srcVertex, V dstVertex) throws GraphException {
 
         return new BreadthFirstSearch<>(this).execute(srcVertex, dstVertex);
     }
 
-    private boolean containsVertex(V vertex) {
+    @Override
+    public  boolean containsVertex(V vertex) {
 
         if (vertex == null) {
             throw new NullPointerException();

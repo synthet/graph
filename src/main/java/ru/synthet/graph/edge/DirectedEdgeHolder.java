@@ -24,13 +24,13 @@ public class DirectedEdgeHolder<V> implements EdgeHolder<V> {
     @Override
     public Iterator<V> getAdjacent(final V vertex) {
 
-        return outEdges.stream().map(Edge::getDestinationVertex).iterator();
+        return getOutEdges().stream().map(Edge::getDestinationVertex).iterator();
     }
 
     @Override
     public Optional<Edge<V>> getEdge(final V srcVertex, final V dstVertex) {
 
-        return outEdges.stream().filter(e -> e.getDestinationVertex().equals(dstVertex)).findFirst();
+        return getOutEdges().stream().filter(e -> e.getDestinationVertex().equals(dstVertex)).findFirst();
     }
 
     private void addIn(Edge<V> edge) {
