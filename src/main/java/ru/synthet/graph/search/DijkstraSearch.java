@@ -7,12 +7,9 @@ import ru.synthet.graph.exception.NoSuchVertexException;
 
 import java.util.*;
 
-/**
- * Breadth-first search algorithm (BFS)
- */
-public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSearch<V> {
+public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch<V> {
 
-    public BreadthFirstSearch(Graph<V> graph) {
+    public DijkstraSearch(Graph<V> graph) {
         super(graph);
     }
 
@@ -29,13 +26,16 @@ public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSe
         }
 
         Set<V> visited = new HashSet<>();
-        LinkedList<V> queue = new LinkedList<>();
+        PriorityQueue<PriorityVertex<V>> queue = new PriorityQueue<>();
         Map<V, V> pathMap = new HashMap<>();
         visited.add(startVertex);
-        queue.add(startVertex);
+        PriorityVertex<V> startNode = new PriorityVertex<>(startVertex);
+        startNode.setPriority(0);
+        queue.add(startNode);
         V currentVertex;
         while (!queue.isEmpty()) {
-            currentVertex = queue.poll();
+            PriorityVertex<V> currentNode = queue.poll();
+            currentVertex = currentNode.getVertex();
             Iterator<V> i = graph.getAdjacent(currentVertex);
             while (i.hasNext()) {
                 V nextVertex = i.next();
@@ -43,7 +43,9 @@ public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSe
                     pathMap.put(nextVertex, currentVertex);
                     if (!Objects.equals(nextVertex, endVertex)) {
                         visited.add(nextVertex);
-                        queue.add(nextVertex);
+                        PriorityVertex<V> nextNode = new PriorityVertex<>(nextVertex);
+                        nextNode.setPriority(1);
+                        queue.add(nextNode);
                     } else {
                         queue.clear();
                         break;
@@ -55,4 +57,30 @@ public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSe
         return reconstructPath(startVertex, endVertex, pathMap);
     }
 
+    private class PriorityVertex<U> implements Comparable<PriorityVertex<U>> {
+
+        private U vertex;
+        private int priority = Integer.MAX_VALUE;
+
+        public PriorityVertex(U vertex) {
+            this.vertex = vertex;
+        }
+
+        public U getVertex() {
+            return vertex;
+        }
+
+        public int getPriority() {
+            return priority;
+        }
+
+        public void setPriority(int priority) {
+            this.priority = priority;
+        }
+
+        @Override
+        public int compareTo(PriorityVertex<U> o) {
+            return Integer.compare(getPriority(), o.getPriority());
+        }
+    }
 }
