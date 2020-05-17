@@ -32,4 +32,9 @@ public class SimpleEdge<V> implements Edge<V> {
     public List<V> getVertexList() {
         return Arrays.asList(srcVertex, dstVertex);
     }
+
+    @Override
+    public String toString() {
+        return '{' + String.valueOf(srcVertex) + ", " + String.valueOf(dstVertex) + '}';
+    }
 }

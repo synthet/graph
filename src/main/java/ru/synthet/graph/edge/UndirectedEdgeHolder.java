@@ -2,6 +2,7 @@ package ru.synthet.graph.edge;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
@@ -17,6 +18,12 @@ public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
     public Iterator<V> getAdjacent() {
 
         return edges.stream().map(Edge::getDestinationVertex).iterator();
+    }
+
+    @Override
+    public Optional<Edge<V>> getEdge(final V dstVertex) {
+
+        return edges.stream().filter(e -> e.getDestinationVertex().equals(dstVertex)).findFirst();
     }
 
     private void add(Edge<V> edge) {

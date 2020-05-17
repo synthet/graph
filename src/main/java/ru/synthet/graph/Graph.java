@@ -26,9 +26,18 @@ public interface Graph<V> {
      * @param srcVertex - source vertex of an edge
      * @param dstVertex - destination vertex of an edge
      *
-     * @return optional edge
+     * @return optional edge if added
      */
     Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex);
+
+    /**
+     * Get any edge between two vertexes if exists
+     * @param srcVertex - source vertex of an edge
+     * @param dstVertex - destination vertex of an edge
+     *
+     * @return optional edge if exists
+     */
+    Optional<Edge<V>> getEdge(V srcVertex, V dstVertex);
 
     /**
      * Get list of edges between two vertexes
