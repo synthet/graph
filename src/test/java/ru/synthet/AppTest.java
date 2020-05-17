@@ -25,7 +25,7 @@ public class AppTest {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         Assert.assertTrue(graph instanceof DirectedGraph);
-        Assert.assertEquals(graph.getType(), GraphType.DIRECTED);
+        Assert.assertEquals(GraphType.DIRECTED, graph.getType());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class AppTest {
 
         Graph<Long> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
         Assert.assertTrue(graph instanceof UndirectedGraph);
-        Assert.assertEquals(graph.getType(), GraphType.UNDIRECTED);
+        Assert.assertEquals(GraphType.UNDIRECTED, graph.getType());
     }
 
     @Test
@@ -68,8 +68,8 @@ public class AppTest {
         graph.addVertex(1L);
         Optional<Edge<Long>> edge = graph.addEdge​(0L, 1L);
         Assert.assertTrue(edge.isPresent());
-        Assert.assertEquals(edge.get().getSourceVertex(), (Long) 0L);
-        Assert.assertEquals(edge.get().getDestinationVertex(), (Long) 1L);
+        Assert.assertEquals((Long) 0L, edge.get().getSourceVertex());
+        Assert.assertEquals((Long) 1L, edge.get().getDestinationVertex());
     }
 
     @Test(expected = NoSuchVertexException.class)
@@ -114,7 +114,19 @@ public class AppTest {
         graph.addEdge​("0", "0");
 
         List<Edge<String>> path = graph.getPath("0", "0");
-        Assert.assertEquals(path.size(), 1);
+        Assert.assertEquals(1, path.size());
+
+        System.out.println(String.format("%s", path.toString()));
+    }
+
+    @Test
+    public void testSearchPathSelf() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
+
+        List<Edge<String>> path = graph.getPath("0", "0");
+        Assert.assertEquals(0, path.size());
 
         System.out.println(String.format("%s", path.toString()));
     }
@@ -146,9 +158,9 @@ public class AppTest {
         graph.addEdge​("7", "6");
 
         List<Edge<String>> path = graph.getPath("4", "1");
-        Assert.assertEquals(path.size(), 5);
-        Assert.assertEquals(path.get(0).getSourceVertex(), "4");
-        Assert.assertEquals(path.get(4).getDestinationVertex(), "1");
+        Assert.assertEquals(5, path.size());
+        Assert.assertEquals("4", path.get(0).getSourceVertex());
+        Assert.assertEquals("1", path.get(4).getDestinationVertex());
 
         System.out.println(String.format("%s", path.toString()));
     }
@@ -177,7 +189,7 @@ public class AppTest {
         graph.addEdge​("7", "7");
 
         List<Edge<String>> path = graph.getPath("4", "5");
-        Assert.assertEquals(path.size(), 3);
+        Assert.assertEquals(3, path.size());
         Assert.assertTrue(path.get(0).getVertexList().contains("4"));
         Assert.assertTrue(path.get(2).getVertexList().contains("5"));
 
@@ -213,12 +225,16 @@ public class AppTest {
         graph.addEdge​("6", "5");
         graph.addEdge​("7", "5");
 
-        List<Edge<String>> path = graph.getPath(String.valueOf(7), String.valueOf(6));
-        Assert.assertEquals(path.size(), 6);
-        Assert.assertTrue(path.get(0).getVertexList().contains("7"));
-        Assert.assertTrue(path.get(5).getVertexList().contains("6"));
-
-        System.out.println(String.format("%s", path.toString()));
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                if (i != j) {
+                    List<Edge<String>> path = graph.getPath(String.valueOf(i), String.valueOf(j));
+                    Assert.assertTrue(!path.isEmpty());
+                    Assert.assertTrue(path.get(0).getVertexList().contains(String.valueOf(i)));
+                    Assert.assertTrue(path.get(path.size() - 1).getVertexList().contains(String.valueOf(j)));
+                }
+            }
+        }
     }
 
     @Test
@@ -252,8 +268,12 @@ public class AppTest {
 
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
-                List<Edge<String>> path = graph.getPath(String.valueOf(i), String.valueOf(j));
-                System.out.println(String.format("%s", path.toString()));
+                if (i != j) {
+                    List<Edge<String>> path = graph.getPath(String.valueOf(i), String.valueOf(j));
+                    Assert.assertTrue(!path.isEmpty());
+                    Assert.assertTrue(path.get(0).getVertexList().contains(String.valueOf(i)));
+                    Assert.assertTrue(path.get(path.size() - 1).getVertexList().contains(String.valueOf(j)));
+                }
             }
         }
     }

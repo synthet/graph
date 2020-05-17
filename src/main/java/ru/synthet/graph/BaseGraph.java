@@ -5,7 +5,6 @@ import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
 import ru.synthet.graph.exception.GraphException;
 import ru.synthet.graph.exception.NoSuchVertexException;
-import ru.synthet.graph.search.BreadthFirstSearch;
 import ru.synthet.graph.search.DijkstraSearch;
 
 import java.util.*;

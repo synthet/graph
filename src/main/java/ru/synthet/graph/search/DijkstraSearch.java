@@ -44,8 +44,7 @@ public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch
                 Edge<V> nextEdge = i.next();
                 V nextVertex = nextEdge.getAdjacentVertex(currentVertex);
                 if (!visited.contains(nextVertex)) {
-                    long edgePriority = getEdgePriority(nextEdge);
-                    long newPriority = getPriority(priorityMap, currentVertex) + edgePriority;
+                    long newPriority = getPriority(priorityMap, currentVertex) + 1L;
                     if (newPriority < getPriority(priorityMap, nextVertex)) {
                         priorityMap.put(nextVertex, newPriority);
                         pathMap.put(nextVertex, currentVertex);
