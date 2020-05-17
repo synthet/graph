@@ -29,7 +29,7 @@ public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
     public Optional<Edge<V>> getEdge(final V srcVertex, final V dstVertex) {
 
         return getEdges().stream()
-                .filter(e -> (e.getVertexList().contains(srcVertex)) && (e.getVertexList().contains(dstVertex)))
+                .filter(e -> (e.getAdjacentVertex(srcVertex).equals(dstVertex)))
                 .findFirst();
     }
 

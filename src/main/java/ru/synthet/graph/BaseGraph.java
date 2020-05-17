@@ -5,6 +5,7 @@ import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
 import ru.synthet.graph.exception.GraphException;
 import ru.synthet.graph.exception.NoSuchVertexException;
+import ru.synthet.graph.search.BreadthFirstSearch;
 import ru.synthet.graph.search.DijkstraSearch;
 
 import java.util.*;
@@ -39,7 +40,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
             throw new NoSuchVertexException();
         }
 
-        SimpleEdge<V> edge = new SimpleEdge<>(srcVertex, dstVertex);
+        Edge<V> edge = new SimpleEdge<>(srcVertex, dstVertex);
 
         getVertexMap().get(srcVertex).add(srcVertex, edge);
         getVertexMap().get(dstVertex).add(dstVertex, edge);
@@ -73,6 +74,7 @@ public abstract class BaseGraph<V> implements Graph<V> {
     public List<Edge<V>> getPath(V srcVertex, V dstVertex) throws GraphException {
 
         return new DijkstraSearch<>(this).execute(srcVertex, dstVertex);
+        //return new BreadthFirstSearch<>(this).execute(srcVertex, dstVertex);
     }
 
     @Override

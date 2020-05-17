@@ -92,7 +92,7 @@ public class AppTest {
     }
 
     @Test
-    public void testBreadthFirstSearchNoPath() throws GraphException {
+    public void testSearchPathNoPath() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
@@ -107,7 +107,7 @@ public class AppTest {
     }
 
     @Test
-    public void testBreadthFirstSearchLoop() throws GraphException {
+    public void testSearchPathLoop() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
@@ -120,7 +120,7 @@ public class AppTest {
     }
 
     @Test
-    public void testBreadthFirstSearchDirected() throws GraphException {
+    public void testSearchPathDirected() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
@@ -154,7 +154,7 @@ public class AppTest {
     }
 
     @Test
-    public void testBreadthFirstSearchUndirected() throws GraphException {
+    public void testSearchPathUndirected() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, String.class);
         graph.addVertex("0");
@@ -185,21 +185,76 @@ public class AppTest {
     }
 
     @Test
-    public void testBreadthFirstSearchDirected2() throws GraphException {
+    public void testSearchPathDirected2() throws GraphException {
 
-        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, String.class);
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
         graph.addVertex("1");
         graph.addVertex("2");
         graph.addVertex("3");
         graph.addVertex("4");
+        graph.addVertex("5");
+        graph.addVertex("6");
+        graph.addVertex("7");
 
-        graph.addEdge​("1", "2");
-        graph.addEdge​("1", "3");
+        graph.addEdge​("0", "1");
+        graph.addEdge​("0", "2");
+        graph.addEdge​("0", "4");
+        graph.addEdge​("1", "0");
+        graph.addEdge​("1", "5");
         graph.addEdge​("2", "4");
-        graph.addEdge​("3", "4");
+        graph.addEdge​("2", "6");
+        graph.addEdge​("3", "1");
+        graph.addEdge​("3", "5");
+        graph.addEdge​("4", "2");
+        graph.addEdge​("4", "6");
+        graph.addEdge​("5", "3");
+        graph.addEdge​("5", "7");
+        graph.addEdge​("6", "5");
+        graph.addEdge​("7", "5");
 
-        List<Edge<String>> path = graph.getPath("1", "4");
+        List<Edge<String>> path = graph.getPath(String.valueOf(7), String.valueOf(6));
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getVertexList().contains("7"));
+        Assert.assertTrue(path.get(5).getVertexList().contains("6"));
 
         System.out.println(String.format("%s", path.toString()));
+    }
+
+    @Test
+    public void testSearchPathUndirected2() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, String.class);
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("3");
+        graph.addVertex("4");
+        graph.addVertex("5");
+        graph.addVertex("6");
+        graph.addVertex("7");
+
+        graph.addEdge​("0", "1");
+        graph.addEdge​("0", "2");
+        graph.addEdge​("0", "4");
+        graph.addEdge​("1", "0");
+        graph.addEdge​("1", "5");
+        graph.addEdge​("2", "4");
+        graph.addEdge​("2", "6");
+        graph.addEdge​("3", "1");
+        graph.addEdge​("3", "5");
+        graph.addEdge​("4", "2");
+        graph.addEdge​("4", "6");
+        graph.addEdge​("5", "3");
+        graph.addEdge​("5", "7");
+        graph.addEdge​("6", "5");
+        graph.addEdge​("7", "5");
+
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                List<Edge<String>> path = graph.getPath(String.valueOf(i), String.valueOf(j));
+                System.out.println(String.format("%s", path.toString()));
+            }
+        }
     }
 }
