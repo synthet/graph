@@ -29,7 +29,7 @@ public interface Graph<V> {
      *
      * @return optional edge if added
      */
-    Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex);
+    Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex) throws GraphException;
 
     /**
      * Get any edge between two vertexes if exists

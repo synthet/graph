@@ -4,6 +4,7 @@ import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
 import ru.synthet.graph.exception.GraphException;
+import ru.synthet.graph.exception.NoSuchVertexException;
 import ru.synthet.graph.search.BreadthFirstSearch;
 
 import java.util.*;
@@ -32,10 +33,10 @@ public abstract class BaseGraph<V> implements Graph<V> {
     }
 
     @Override
-    public Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex) {
+    public Optional<Edge<V>> addEdge​(V srcVertex, V dstVertex) throws GraphException {
 
         if ((!containsVertex(srcVertex)) || (!containsVertex(dstVertex)))  {
-            return Optional.empty();
+            throw new NoSuchVertexException();
         }
 
         SimpleEdge<V> edge = new SimpleEdge<>(srcVertex, dstVertex);

@@ -12,6 +12,7 @@ import ru.synthet.graph.exception.NoSuchVertexException;
 import ru.synthet.graph.search.BreadthFirstSearch;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,19 +22,50 @@ public class AppTest {
     @Test
     public void shouldCreateDirectedGraph() {
 
-        Graph<String> directedGraph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
-        Assert.assertTrue(directedGraph instanceof DirectedGraph);
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        Assert.assertTrue(graph instanceof DirectedGraph);
+        Assert.assertEquals(graph.getType(), GraphType.DIRECTED);
     }
 
     @Test
     public void shouldCreateUndirectedGraph() {
 
-        Graph<Long> undirectedGraph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
-        Assert.assertTrue(undirectedGraph instanceof UndirectedGraph);
+        Graph<Long> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
+        Assert.assertTrue(graph instanceof UndirectedGraph);
+        Assert.assertEquals(graph.getType(), GraphType.UNDIRECTED);
+    }
+
+    @Test
+    public void shouldAddVertex() {
+
+        Graph<Long> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
+        boolean isAdded = graph.addVertex(0L);
+        Assert.assertTrue(isAdded);
+    }
+
+    @Test
+    public void shouldAddEdge() throws GraphException {
+
+        Graph<Long> graph = GraphCreator.getInstance().createGraph(GraphType.UNDIRECTED, Long.class);
+        graph.addVertex(0L);
+        graph.addVertex(1L);
+        Optional<Edge<Long>> edge = graph.addEdge​(0L, 1L);
+        Assert.assertTrue(edge.isPresent());
+        Assert.assertEquals(edge.get().getSourceVertex(), (Long) 0L);
+        Assert.assertEquals(edge.get().getDestinationVertex(), (Long) 1L);
     }
 
     @Test(expected = NoSuchVertexException.class)
-    public void testNoSuchVertexException() throws GraphException {
+    public void testNoSuchVertexException1() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addEdge​("0", "2");
+    }
+
+    @Test(expected = NoSuchVertexException.class)
+    public void testNoSuchVertexException2() throws GraphException {
 
         Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
         graph.addVertex("0");
