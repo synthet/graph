@@ -7,6 +7,7 @@ import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.exception.GraphException;
 import ru.synthet.graph.exception.NoSuchVertexException;
 import ru.synthet.graph.exception.WrongGraphTypeException;
+import ru.synthet.graph.search.BreadthFirstSearch;
 
 import java.util.List;
 import java.util.Optional;
@@ -270,6 +271,47 @@ public class AppTest {
             for (int j = 0; j <= 7; j++) {
                 if (i != j) {
                     List<Edge<String>> path = graph.getPath(String.valueOf(i), String.valueOf(j));
+                    Assert.assertTrue(!path.isEmpty());
+                    Assert.assertTrue(path.get(0).getVertexList().contains(String.valueOf(i)));
+                    Assert.assertTrue(path.get(path.size() - 1).getVertexList().contains(String.valueOf(j)));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testBFS() throws GraphException {
+
+        Graph<String> graph = GraphCreator.getInstance().createGraph(GraphType.DIRECTED, String.class);
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("3");
+        graph.addVertex("4");
+        graph.addVertex("5");
+        graph.addVertex("6");
+        graph.addVertex("7");
+
+        graph.addEdge("0", "1");
+        graph.addEdge("0", "2");
+        graph.addEdge("0", "4");
+        graph.addEdge("1", "0");
+        graph.addEdge("1", "5");
+        graph.addEdge("2", "4");
+        graph.addEdge("2", "6");
+        graph.addEdge("3", "1");
+        graph.addEdge("3", "5");
+        graph.addEdge("4", "2");
+        graph.addEdge("4", "6");
+        graph.addEdge("5", "3");
+        graph.addEdge("5", "7");
+        graph.addEdge("6", "5");
+        graph.addEdge("7", "5");
+
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                if (i != j) {
+                    List<Edge<String>> path = new BreadthFirstSearch<>(graph).execute(String.valueOf(i), String.valueOf(j));
                     Assert.assertTrue(!path.isEmpty());
                     Assert.assertTrue(path.get(0).getVertexList().contains(String.valueOf(i)));
                     Assert.assertTrue(path.get(path.size() - 1).getVertexList().contains(String.valueOf(j)));
