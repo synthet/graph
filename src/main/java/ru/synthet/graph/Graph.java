@@ -55,7 +55,15 @@ public interface Graph<V> {
      *
      * @return iterator through adjacent vertexes
      */
-    Iterator<V> getAdjacent(V vertex);
+    Iterator<V> getAdjacentVertexes(V vertex);
+
+    /**
+     * Iterate trough adjacent edges
+     * @param vertex - start vertex
+     *
+     * @return iterator through adjacent edges
+     */
+    Iterator<Edge<V>> getAdjacentEdges(V vertex);
 
     /**
      * Check if vertex exists in the graph

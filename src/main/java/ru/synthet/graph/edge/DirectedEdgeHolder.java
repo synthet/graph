@@ -22,9 +22,15 @@ public class DirectedEdgeHolder<V> implements EdgeHolder<V> {
     }
 
     @Override
-    public Iterator<V> getAdjacent(final V vertex) {
+    public Iterator<V> getAdjacentVertexes(final V vertex) {
 
         return getOutEdges().stream().map(Edge::getDestinationVertex).iterator();
+    }
+
+    @Override
+    public Iterator<Edge<V>> getAdjacentEdges(final V vertex) {
+
+        return getOutEdges().stream().iterator();
     }
 
     @Override

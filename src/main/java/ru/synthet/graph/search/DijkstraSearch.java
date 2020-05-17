@@ -6,6 +6,7 @@ import ru.synthet.graph.exception.GraphException;
 import ru.synthet.graph.exception.NoSuchVertexException;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch<V> {
 
@@ -34,18 +35,24 @@ public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch
         queue.add(startNode);
         V currentVertex;
         while (!queue.isEmpty()) {
-            PriorityVertex<V> currentNode = queue.poll();
+            PriorityVertex<V> currentNode = queue.remove();
+            int currentPriority = currentNode.getPriority();
             currentVertex = currentNode.getVertex();
-            Iterator<V> i = graph.getAdjacent(currentVertex);
+            Iterator<Edge<V>> i = graph.getAdjacentEdges(currentVertex);
             while (i.hasNext()) {
-                V nextVertex = i.next();
+                Edge<V> nextEdge = i.next();
+                V nextVertex = nextEdge.getAdjacentVertex(currentVertex);
                 if (!visited.contains(nextVertex)) {
                     pathMap.put(nextVertex, currentVertex);
                     if (!Objects.equals(nextVertex, endVertex)) {
                         visited.add(nextVertex);
                         PriorityVertex<V> nextNode = new PriorityVertex<>(nextVertex);
-                        nextNode.setPriority(1);
-                        queue.add(nextNode);
+                        nextNode.setPriority(currentPriority + ThreadLocalRandom.current().nextInt(1, 10 + 1));
+                        if (queue.contains(nextNode)) {
+                            queue.add(nextNode);
+                        } else {
+                            queue.add(nextNode);
+                        }
                     } else {
                         queue.clear();
                         break;
@@ -81,6 +88,19 @@ public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch
         @Override
         public int compareTo(PriorityVertex<U> o) {
             return Integer.compare(getPriority(), o.getPriority());
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof PriorityVertex)) return false;
+            PriorityVertex<?> that = (PriorityVertex<?>) o;
+            return Objects.equals(getVertex(), that.getVertex());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getVertex());
         }
     }
 }

@@ -36,7 +36,7 @@ public class BreadthFirstSearch<V> extends BaseGraphSearch<V> implements GraphSe
         V currentVertex;
         while (!queue.isEmpty()) {
             currentVertex = queue.poll();
-            Iterator<V> i = graph.getAdjacent(currentVertex);
+            Iterator<V> i = graph.getAdjacentVertexes(currentVertex);
             while (i.hasNext()) {
                 V nextVertex = i.next();
                 if (!visited.contains(nextVertex)) {

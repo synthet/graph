@@ -1,5 +1,7 @@
 package ru.synthet.graph.edge;
 
+import ru.synthet.graph.exception.NoSuchVertexException;
+
 import java.util.List;
 
 public interface Edge<V> {
@@ -15,7 +17,13 @@ public interface Edge<V> {
     V getDestinationVertex();
 
     /**
+     * @return adjacent vertex
+     */
+    V getAdjacentVertex(V vertex) throws NoSuchVertexException;
+
+    /**
      * @return list of vertexes
      */
     List<V> getVertexList();
+
 }

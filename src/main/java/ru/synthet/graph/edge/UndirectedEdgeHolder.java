@@ -12,12 +12,17 @@ public class UndirectedEdgeHolder<V> implements EdgeHolder<V> {
     }
 
     @Override
-    public Iterator<V> getAdjacent(final V vertex) {
+    public Iterator<V> getAdjacentVertexes(final V vertex) {
 
         return getEdges().stream()
-                .map(Edge::getVertexList)
-                .flatMap(Collection::stream)
-                .filter(v -> !Objects.equals(v, vertex)).iterator();
+                .map(e -> e.getAdjacentVertex(vertex))
+                .iterator();
+    }
+
+    @Override
+    public Iterator<Edge<V>> getAdjacentEdges(final V vertex) {
+
+        return getEdges().stream().iterator();
     }
 
     @Override

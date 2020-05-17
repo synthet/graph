@@ -1,7 +1,10 @@
 package ru.synthet.graph.edge;
 
+import ru.synthet.graph.exception.NoSuchVertexException;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class SimpleEdge<V> implements Edge<V> {
 
@@ -26,6 +29,20 @@ public class SimpleEdge<V> implements Edge<V> {
     @Override
     public V getDestinationVertex() {
         return dstVertex;
+    }
+
+    @Override
+    public V getAdjacentVertex(V vertex) throws NoSuchVertexException {
+
+        if (Objects.equals(vertex, srcVertex)) {
+            return dstVertex;
+        }
+
+        if (Objects.equals(vertex, dstVertex)) {
+            return srcVertex;
+        }
+
+        throw new NoSuchVertexException();
     }
 
     @Override
