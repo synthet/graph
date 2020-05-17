@@ -48,13 +48,13 @@ public abstract class BaseGraph<V> implements Graph<V> {
     @Override
     public Optional<Edge<V>> getEdge(V srcVertex, V dstVertex) {
 
-        return getVertexMap().get(srcVertex).getEdge(dstVertex);
+        return getVertexMap().get(srcVertex).getEdge(srcVertex, dstVertex);
     }
 
     @Override
     public Iterator<V> getAdjacent(V vertex) {
 
-        return getVertexMap().get(vertex).getAdjacent();
+        return getVertexMap().get(vertex).getAdjacent(vertex);
     }
 
     @Override
