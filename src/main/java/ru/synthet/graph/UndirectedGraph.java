@@ -1,10 +1,7 @@
 package ru.synthet.graph;
 
-import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.UndirectedEdgeHolder;
-
-import java.util.List;
 
 public class UndirectedGraph<V> extends BaseGraph<V> implements Graph<V> {
 
@@ -22,11 +19,6 @@ public class UndirectedGraph<V> extends BaseGraph<V> implements Graph<V> {
     @Override
     protected EdgeHolder<V> emptyEdgeHolder() {
         return new UndirectedEdgeHolder<>();
-    }
-
-    @Override
-    public List<Edge<V>> getPath(V srcVertex, V dstVertex) {
-        return null;
     }
 
 }

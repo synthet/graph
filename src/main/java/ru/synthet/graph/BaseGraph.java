@@ -3,6 +3,7 @@ package ru.synthet.graph;
 import ru.synthet.graph.edge.Edge;
 import ru.synthet.graph.edge.EdgeHolder;
 import ru.synthet.graph.edge.SimpleEdge;
+import ru.synthet.graph.search.BreadthFirstSearch;
 
 import java.util.*;
 
@@ -17,9 +18,6 @@ public abstract class BaseGraph<V> implements Graph<V> {
     }
 
     protected abstract EdgeHolder<V> emptyEdgeHolder();
-
-    @Override
-    public abstract List<Edge<V>> getPath(V srcVertex, V dstVertex);
 
     @Override
     public boolean addVertex(V vertex) {
@@ -57,6 +55,12 @@ public abstract class BaseGraph<V> implements Graph<V> {
     public Iterator<V> getAdjacent(V vertex) {
 
         return getVertexMap().get(vertex).getAdjacent();
+    }
+
+    @Override
+    public List<Edge<V>> getPath(V srcVertex, V dstVertex) {
+
+        return new BreadthFirstSearch<>(this).execute(srcVertex, dstVertex);
     }
 
     private boolean containsVertex(V vertex) {

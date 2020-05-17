@@ -56,8 +56,10 @@ public class AppTest {
         graph.addEdge​("6", "7");
         graph.addEdge​("7", "6");
 
-        BreadthFirstSearch<String> search = new BreadthFirstSearch<>(graph);
-        List<Edge<String>> path = search.execute("4", "1");
+        List<Edge<String>> path = graph.getPath("4", "1");
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertEquals(path.get(0).getDestinationVertex(), "2");
+        Assert.assertEquals(path.get(0).getDestinationVertex(), "2");
         System.out.println(String.format("%s", path.toString()));
     }
 }
