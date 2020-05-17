@@ -6,6 +6,9 @@ import ru.synthet.graph.exception.GraphException;
 
 import java.util.*;
 
+/**
+ * Dijkstra search algorithm (BFS)
+ */
 public class DijkstraSearch<V> extends BaseGraphSearch<V> implements GraphSearch<V> {
 
     public DijkstraSearch(Graph<V> graph) {
